@@ -1,0 +1,21 @@
+export const STATES = {
+
+    LANGUAGE: "LANGUAGE",
+
+    MAIN_MENU: "MAIN_MENU",
+
+    ASK_NAME: "ASK_NAME",
+
+    ASK_AGE: "ASK_AGE",
+
+    SELECT_DOCTOR: "SELECT_DOCTOR",
+
+    SELECT_DATE: "SELECT_DATE",
+
+    SELECT_TIME: "SELECT_TIME",
+
+    PREVIEW: "PREVIEW",
+
+    BOOKED: "BOOKED"
+
+};
