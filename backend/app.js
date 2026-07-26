@@ -23,7 +23,7 @@ app.use("/webhook", webhookRoutes);
 
 app.get("/health", (req, res) => {
     res.status(200).json({
-        status: "ok"
+        status: "Health OK"
     });
 });
 
