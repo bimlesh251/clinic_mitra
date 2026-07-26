@@ -23,10 +23,14 @@ jobs:
 
             git pull origin main
 
-            docker compose down
+            docker compose pull || true
 
             docker compose up -d --build
 
             docker image prune -f
 
             docker ps
+
+            sleep 10
+            
+            curl -f http://localhost/health
