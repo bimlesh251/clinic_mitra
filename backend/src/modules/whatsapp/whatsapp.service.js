@@ -1,5 +1,4 @@
 import axios from "axios";
-import config from "../../../configuration.js";
 
 const sendRequest = async (payload, clinic) => {
   try {

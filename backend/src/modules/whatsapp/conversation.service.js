@@ -1,5 +1,6 @@
 import { ACTIONS } from "./constants.js";
 import { STATES } from "./states.js";
+import { sendTextMessage } from "./whatsapp.service.js";
 
 import {
     createSession,
@@ -17,9 +18,6 @@ import {
     startBooking, saveName, saveAge, saveDoctor, saveDate, saveTime, confirmAppointment,
     showAppointments, showAppointmentDetails, cancelAppointment, showClinicLocation, showClinicDetails
 } from "./appointment.service.js";
-
-import { sendTextMessage } from "./whatsapp.service.js";
-import counterModel from "../counter/counter.model.js";
 
 const GLOBAL_COMMANDS = [
     "hi",

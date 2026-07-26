@@ -47,6 +47,9 @@ export const findSchedule = async (clinicId,doctorId,weekday,appointmentDate) =>
         // ]
 
     });
+    if(appointmentDate){
+        console.log(appointmentDate)
+    }
 
     return result
 

@@ -9,7 +9,7 @@ import { createAppointment, getUpcomingAppointments, getAppointment, cancelmyApp
 import { generateAppointmentNumber } from "../counter/counter.service.js";
 
 export const askName = async (context) => {
-    const { sender, clinic, message, data, session } = context;
+    const { sender, clinic } = context;
     return await sendTextMessage(
         {
             sender,
@@ -20,7 +20,7 @@ export const askName = async (context) => {
 };
 
 export const saveName = async (context) => {
-    const { sender, clinic, message, data, session } = context;
+    const { sender, clinic, data, session } = context;
     session.appointment.patientName = data;
     updateSession(
         sender,
@@ -35,13 +35,12 @@ export const saveName = async (context) => {
 
 };
 export const saveAge = async (context) => {
-    const { sender, clinic, message, data, session } = context;
+    const { sender, clinic, data, session } = context;
     session.appointment.age = data;
-    updateSession(sender, clinic,
-        {
-            state: STATES.SELECT_DOCTOR,
-            appointment: session.appointment
-        }
+    updateSession(sender, clinic, {
+        state: STATES.SELECT_DOCTOR,
+        appointment: session.appointment
+    }
     );
     const doctors = await getDoctors(context.clinic._id);
     return showDoctorList(sender, doctors, clinic);
@@ -127,26 +126,26 @@ export const showAppointmentPreview = async (context) => {
 
     return sendButtonMessage(
         {
-        sender,
+            sender,
 
-        text:message,
+            text: message,
 
-        buttons:[
+            buttons: [
 
-            {
-                id: ACTIONS.CONFIRM,
-                title: "Confirm"
-            },
+                {
+                    id: ACTIONS.CONFIRM,
+                    title: "Confirm"
+                },
 
-            {
-                id: ACTIONS.RESCHEDULE,
-                title: "Reschedule"
-            }
+                {
+                    id: ACTIONS.RESCHEDULE,
+                    title: "Reschedule"
+                }
 
-        ],
-        clinic
+            ],
+            clinic
 
-    }
+        }
 
     );
 
@@ -186,24 +185,24 @@ export const confirmAppointment = async (context) => {
 
     clearSession(sender, clinic);
 
-      return await sendButtonMessage(
+    return await sendButtonMessage(
         {
-        sender,
+            sender,
 
-        text:message,
+            text: message,
 
-        buttons:[
+            buttons: [
 
-            {
+                {
 
-                id: ACTIONS.BACK_TO_MENU,
+                    id: ACTIONS.BACK_TO_MENU,
 
-                title: "Main Menu"
+                    title: "Main Menu"
 
-            }
+                }
 
-        ],
-        clinic
+            ],
+            clinic
         }
 
     );
@@ -272,14 +271,14 @@ export const showAppointments = async (context) => {
 
     return await sendListMessage(
         {
-        sender,
+            sender,
 
-        text:"📅 Your Upcoming Appointments\n\nPlease select an appointment.",
+            text: "📅 Your Upcoming Appointments\n\nPlease select an appointment.",
 
-        buttonText:"View Appointment",
+            buttonText: "View Appointment",
 
-        rows,
-        clinic
+            rows,
+            clinic
         }
 
     );
@@ -325,30 +324,30 @@ export const showAppointmentDetails = async (context) => {
 
     return await sendButtonMessage(
         {
-        sender,
+            sender,
 
-        text:body,
+            text: body,
 
-        buttons:[
+            buttons: [
 
-            {
+                {
 
-                id: `cancel_${appointment._id}`,
+                    id: `cancel_${appointment._id}`,
 
-                title: "Cancel"
+                    title: "Cancel"
 
-            },
+                },
 
-            {
+                {
 
-                id: ACTIONS.BACK_TO_MENU,
+                    id: ACTIONS.BACK_TO_MENU,
 
-                title: "Main Menu"
+                    title: "Main Menu"
 
-            }
+                }
 
-        ],
-        clinic
+            ],
+            clinic
         }
 
     );
@@ -372,7 +371,7 @@ export const cancelAppointment = async (context) => {
         );
     }
 
-   
+
 
     const body = `✅ Appointment Cancelled Successfully
     Appointment ID:  ${appointment.appointmentNumber}, `;
@@ -380,22 +379,22 @@ export const cancelAppointment = async (context) => {
 
     return await sendButtonMessage(
         {
-        sender,
+            sender,
 
-        text:body,
+            text: body,
 
-        buttons:[
+            buttons: [
 
-            {
+                {
 
-                id: ACTIONS.BACK_TO_MENU,
+                    id: ACTIONS.BACK_TO_MENU,
 
-                title: "Main Menu"
+                    title: "Main Menu"
 
-            }
+                }
 
-        ],
-        clinic
+            ],
+            clinic
         }
 
     );
@@ -433,26 +432,26 @@ Saturday : ${clinic.workingHours.saturday}
 Sunday : ${clinic.workingHours.sunday}
 `;
 
-    
+
 
     return await sendButtonMessage(
         {
-        sender,
+            sender,
 
-        text:message,
+            text: message,
 
-        buttons:[
+            buttons: [
 
-            {
+                {
 
-                id: ACTIONS.BACK_TO_MENU,
+                    id: ACTIONS.BACK_TO_MENU,
 
-                title: "Main Menu"
+                    title: "Main Menu"
 
-            }
+                }
 
-        ],
-        clinic
+            ],
+            clinic
         }
     );
 };

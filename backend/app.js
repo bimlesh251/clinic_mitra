@@ -13,7 +13,7 @@ const app = express();
 
 // Middleware
 app.use(express.json({ limit: '30mb' }));
-app.use(express.urlencoded({limit: '30mb',extended: true}));
+app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 app.use('/sitedata', express.static(path.join('public')));
 
@@ -23,7 +23,10 @@ app.use("/webhook", webhookRoutes);
 
 app.get("/health", (req, res) => {
     res.status(200).json({
-        status: "Health OK"
+        status: "UP",
+        version: process.env.npm_package_version,
+        uptime: Math.floor(process.uptime()),
+        timestamp: new Date().toISOString()
     });
 });
 
@@ -39,20 +42,28 @@ process.on('uncaughtException', (error) => {
   process.exit(1);
 });
 
+
 // Start Server
 const PORT = config.API_PORT || 3001;
 const startServer = async () => {
   try {
-    
-    await mongoose.connect(config.MONGO_URL);    
+
+    await mongoose.connect(config.MONGO_URL);
 
     const server = app.listen(PORT, () => {
-        console.log(`Server running on ${PORT}`);
+      console.log(`Server running on ${PORT}`);
     });
 
+    process.on("SIGTERM", () => {
+      console.log("Shutting down...");
+      server.close(() => {
+        mongoose.connection.close();
+        process.exit(0);
+      });
+    });
   } catch (error) {
-      console.error('Error starting the server');
-      console.error(error.stack);
+    console.error('Error starting the server');
+    console.error(error.stack);
   }
 };
 startServer();

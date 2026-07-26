@@ -1,6 +1,6 @@
 import { MENUS } from "./menu.config.js";
 import { getAvailableDates, formatISODate, formatWhatsappDate } from "../../common/date.utils.js";
-import { sendListMessage, sendButtonMessage } from "./whatsapp.service.js";
+import { sendListMessage, sendButtonMessage, sendTextMessage } from "./whatsapp.service.js";
 
 
 
