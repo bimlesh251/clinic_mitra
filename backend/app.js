@@ -18,11 +18,6 @@ app.use(express.urlencoded({limit: '30mb',extended: true}));
 app.use('/sitedata', express.static(path.join('public')));
 
 // Routes
-app.use("/", (req, res)=>{
-  res.status(200).json({
-    message:"This is an appointment booking system",
-  })
-});
 app.use("/api/v1", apiRoutes);
 app.use("/webhook", webhookRoutes);
 
